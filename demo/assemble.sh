@@ -51,12 +51,15 @@ ffmpeg -y \
     [ov2]format=yuv420p[ov3]; \
     [iv3][mv]xfade=transition=fade:duration=${XFADE1}:offset=$(python3 -c "print($INTRO_DUR-$XFADE1)")[vab]; \
     [vab][ov3]xfade=transition=fade:duration=${XFADE2}:offset=$(python3 -c "print($MAIN_START+$MAIN_DUR-$XFADE2)")[vfinal]; \
-    [1:a]aresample=48000,aformat=channel_layouts=stereo,adelay=${MAIN_START}s:all=1[narr]; \
-    [5:a]aresample=48000,aformat=channel_layouts=stereo,atrim=duration=$TOTAL,volume=0.16,afade=t=in:st=0:d=2,afade=t=out:st=$(python3 -c "print(round($TOTAL-3,2))"):d=3[mus]; \
-    [mus][narr]amix=inputs=2:duration=longest:weights='1 5':normalize=0[afinal]" \
+    [1:a]aresample=48000,aformat=channel_layouts=stereo,adelay=${MAIN_START}s:all=1,volume=1.0[narrpre]; \
+    [narrpre]asplit=2[narr][narrkey]; \
+    [5:a]aresample=48000,aformat=channel_layouts=stereo,atrim=duration=$TOTAL,volume=0.55,afade=t=in:st=0:d=2,afade=t=out:st=$(python3 -c "print(round($TOTAL-3,2))"):d=3[muspre]; \
+    [muspre][narrkey]sidechaincompress=threshold=0.04:ratio=8:attack=12:release=380:makeup=2.0:level_sc=0.8[musduck]; \
+    [narr][musduck]amix=inputs=2:duration=longest:weights='3 1':normalize=0,loudnorm=I=-14:TP=-1.5:LRA=11[afinal]" \
   -map "[vfinal]" -map "[afinal]" \
   -t $TOTAL \
-  -c:v libx264 -preset medium -crf 20 -pix_fmt yuv420p \
+  -c:v h264_videotoolbox -b:v 10M -allow_sw 1 -pix_fmt yuv420p \
+    -profile:v high -level 4.2 \
   -c:a aac -b:a 192k -movflags +faststart \
   "$OUT"
 

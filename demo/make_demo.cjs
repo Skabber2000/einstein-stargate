@@ -34,23 +34,25 @@ const probe = (file) => {
 console.log('[1/4] Generating TTS…');
 const blocks = [];
 SCRIPT.scenes.forEach((s, i) => {
-  const text = s.lines.join(' ');
-  // Filenames are index-only (no JSON-derived content) so they're statically safe.
   // nosemgrep: javascript.lang.security.audit.path-traversal.path-join-resolve-traversal.path-join-resolve-traversal
-  const rawWav = path.join(OUT, `block_${String(i).padStart(2,'0')}_raw.wav`);
-  // nosemgrep: javascript.lang.security.audit.path-traversal.path-join-resolve-traversal.path-join-resolve-traversal
-  const wav    = path.join(OUT, `block_${String(i).padStart(2,'0')}.wav`);
+  const wav = path.join(OUT, `block_${String(i).padStart(2,'0')}.wav`);
 
-  // Piper: text via stdin, WAV via --output_file
-  const r = spawnSync(PIPER_BIN, [
-    '--model', MODEL_PATH,
-    '--length_scale', LENGTH_SCALE,
-    '--output_file', rawWav,
-  ], { input: text, stdio: ['pipe', 'ignore', 'inherit'] });
-  if (r.status !== 0) throw new Error(`piper failed (exit ${r.status}) on block ${i}`);
-
-  // Normalize to 48 kHz stereo for ffmpeg concat
-  spawnSync('ffmpeg', ['-y', '-i', rawWav, '-ar', '48000', '-ac', '2', wav], { stdio: 'ignore' });
+  if (SCRIPT.engine === 'f5-tts') {
+    // Pre-rendered by demo/synthesize.py — no synthesis here, just probe.
+    if (!fs.existsSync(wav)) {
+      throw new Error(`F5-TTS WAV missing: ${wav}\nRun: python demo/synthesize.py`);
+    }
+  } else {
+    // Piper fallback: synthesize text → WAV
+    const text = s.lines.join(' ');
+    // nosemgrep: javascript.lang.security.audit.path-traversal.path-join-resolve-traversal.path-join-resolve-traversal
+    const rawWav = path.join(OUT, `block_${String(i).padStart(2,'0')}_raw.wav`);
+    const r = spawnSync(PIPER_BIN, [
+      '--model', MODEL_PATH, '--length_scale', LENGTH_SCALE, '--output_file', rawWav,
+    ], { input: text, stdio: ['pipe', 'ignore', 'inherit'] });
+    if (r.status !== 0) throw new Error(`piper failed (exit ${r.status}) on block ${i}`);
+    spawnSync('ffmpeg', ['-y', '-i', rawWav, '-ar', '48000', '-ac', '2', wav], { stdio: 'ignore' });
+  }
   const dur = probe(wav);
   blocks.push({ ...s, wav, dur });
   console.log(`  • ${s.key.padEnd(8)} ${dur.toFixed(2)}s`);

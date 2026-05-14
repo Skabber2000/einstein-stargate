@@ -1,5 +1,7 @@
 {
-  "engine": "piper",
+  "engine": "f5-tts",
+  "_note_engine": "Pre-render with: python demo/synthesize.py (uses F5-TTS, voice-cloned, MPS).",
+  "_fallback_engine": "piper",
   "model": "demo/voices/en_US-ryan-high.onnx",
   "length_scale": 1.0,
   "scenes": [
