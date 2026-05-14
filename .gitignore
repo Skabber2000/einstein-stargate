@@ -1,0 +1,34 @@
+# --- Secrets ---
+.env
+.env.*
+!.env.example
+
+# --- Python ---
+.venv/
+__pycache__/
+*.pyc
+
+# --- Node ---
+node_modules/
+
+# --- macOS / IDE ---
+.DS_Store
+.vscode/
+.idea/
+
+# --- Demo build artifacts (regeneratable, not the final deliverable) ---
+demo/build/raw.webm
+demo/build/block_*.wav
+demo/build/block_*.aiff
+demo/build/narration.wav
+demo/build/silence.wav
+demo/build/concat.txt
+demo/build/frames/
+demo/build/spacetime_demo.mp4   # intermediate; final is spacetime_full.mp4 (LFS)
+
+# --- Piper voice model (115 MB, download via scripts/install_voice.sh) ---
+demo/voices/*.onnx
+demo/voices/*.onnx.json
+
+# --- Misc ---
+*.log

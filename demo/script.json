@@ -1,0 +1,64 @@
+{
+  "engine": "piper",
+  "model": "demo/voices/en_US-ryan-high.onnx",
+  "length_scale": 1.0,
+  "scenes": [
+    {
+      "key": "intro",
+      "lines": [
+        "Spacetime is not a stage. It is the cast. Mass and energy press on it; the Einstein tensor measures how deeply they press."
+      ]
+    },
+    {
+      "key": "moon",
+      "scene": 0,
+      "lines": [
+        "The Moon. Its Schwarzschild radius is only zero point one one millimeters; smaller than a grain of sand. The curvature you see here is what an ant on the lunar surface would actually feel."
+      ]
+    },
+    {
+      "key": "earth",
+      "scene": 1,
+      "lines": [
+        "The Earth. r-sub-s equals eight point nine five millimeters. The entire planet would have to collapse to that size to become a black hole. We orbit the Sun, we feel gravity, yet the geometric distortion is only one part in ten to the nine."
+      ]
+    },
+    {
+      "key": "sun",
+      "scene": 2,
+      "lines": [
+        "The Sun. Schwarzschild radius two point nine five kilometers; physical radius nearly seven hundred thousand kilometers. The well looks deep here only because we plot in r-s units. In reality, spacetime around the Sun is still ninety-nine point nine nine nine six percent flat. But enough to bend starlight by one point seven five arc-seconds; the measurement that confirmed General Relativity in 1919."
+      ]
+    },
+    {
+      "key": "r136",
+      "scene": 3,
+      "lines": [
+        "R-136-a-1: the most massive single star known. Roughly two hundred solar masses, in the Tarantula Nebula. Despite that, the gravitational distortion at its surface is still only eight times ten to the minus five. Stars cannot break spacetime by mass alone; only by collapse."
+      ]
+    },
+    {
+      "key": "bh",
+      "scene": 4,
+      "lines": [
+        "A ten solar mass black hole. Now the radius equals r-s. The full Flamm paraboloid is exposed. Inside the horizon, time and radius swap roles. This is what spacetime pressed past its breaking point looks like. But it has only one mouth. Whatever falls in cannot come out."
+      ]
+    },
+    {
+      "key": "gate",
+      "scene": 5,
+      "lines": [
+        "The Star-Gate. Two Schwarzschild geometries glued at a throat: an Einstein-Rosen bridge. Two mouths, one shortcut. To hold the throat open against its urge to collapse, you need exotic matter; matter with negative energy density."
+      ]
+    },
+    {
+      "key": "energy",
+      "scene": 5,
+      "lines": [
+        "How much energy does that cost? The Einstein equations give a classical estimate: c-to-the-fourth times b-zero, divided by big-G. For a two meter gate, wide enough for a person to walk through, that is two point four times ten to the forty-four joules.",
+        "To make that real: it equals about ten to the thirty-first Hiroshima bombs. A one with thirty-one zeros after it. It equals every nuclear weapon currently on Earth, detonated at once, sixteen septillion times in a row. It equals four hundred sextillion years of total world energy production. Or, most directly: it equals one and a half Jupiters, annihilated into pure energy.",
+        "Ford and Roman's quantum inequalities allow exotic energy only on the order of h-bar c divided by b-zero. For the same gate: less than one millionth of a billionth of a joule. The classical requirement exceeds the quantum allowance by seventy orders of magnitude. Until physics closes that gap, the Star-Gate stays science fiction."
+      ]
+    }
+  ]
+}

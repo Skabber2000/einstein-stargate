@@ -1,0 +1,83 @@
+:root {
+  --bg: #0a0e18;
+  --bg2: #131826;
+  --fg: #e7ecf5;
+  --muted: #8b95ad;
+  --accent: #ffb45a;
+  --accent2: #6ea8ff;
+  --hot: #ff5b8a;
+  --grid: #1f2638;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg);
+  font: 14px/1.55 -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif; }
+kbd { background:#1c2336; border:1px solid var(--grid); border-bottom-width:2px; border-radius:4px;
+  padding:1px 6px; font-family:inherit; font-size:11px; color:var(--accent); }
+.hdr { padding: 22px 28px 8px; border-bottom: 1px solid var(--grid); }
+.hdr h1 { margin: 0; font-size: 24px; letter-spacing: .2px; font-weight: 600; }
+.hdr p { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+
+.story { display: flex; gap: 6px; padding: 12px 24px; flex-wrap: wrap; align-items: center;
+  background: linear-gradient(180deg, rgba(255,180,90,0.04), rgba(0,0,0,0)); border-bottom: 1px solid var(--grid); }
+.ssel, .play { background:#1c2336; border:1px solid var(--grid); color: var(--fg); border-radius:8px;
+  padding:7px 12px; font-size:12px; cursor:pointer; transition: background .2s, border-color .2s, color .2s; }
+.ssel:hover, .play:hover { background:#28324b; }
+.ssel.active { background:#3a2a0e; border-color: var(--accent); color: var(--accent); }
+.play { margin-left:auto; background: linear-gradient(180deg,#ffb45a,#e08a2a); color:#1a1207;
+  border-color: transparent; font-weight: 700; }
+
+main {
+  display: grid; gap: 14px; padding: 14px 20px 32px;
+  grid-template-columns: minmax(420px, 1fr) 360px;
+  grid-template-areas:
+    "viz src"
+    "viz curv"
+    "viz narrative"
+    "gate gate";
+}
+.viz { grid-area: viz; position: relative; background: var(--bg2);
+  border-radius: 14px; overflow: hidden; border: 1px solid var(--grid);
+  aspect-ratio: 16/11; min-height: 540px; max-height: 80vh; }
+#three { position: absolute; inset: 0; overflow: hidden; }
+#three canvas { display: block; width: 100% !important; height: 100% !important; }
+.caption { position:absolute; top:14px; left:18px; right:18px; max-width: 560px;
+  padding:10px 14px; background: rgba(10,14,24,.68); border:1px solid var(--grid);
+  border-radius:10px; backdrop-filter: blur(8px); font-size:13px; color:var(--fg); }
+.caption b { color:var(--accent); }
+.legend { position: absolute; left: 12px; bottom: 12px; display: flex; gap: 14px;
+  color: var(--muted); font-size: 12px; backdrop-filter: blur(6px); padding: 6px 10px;
+  background: rgba(10,14,24,.55); border-radius: 8px; }
+.legend i.dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%;
+  margin-right: 4px; vertical-align: middle; }
+.dot.horizon { background: var(--hot); }
+.dot.near    { background: var(--accent); }
+.dot.far     { background: var(--accent2); }
+
+.panel { background: var(--bg2); border: 1px solid var(--grid); border-radius: 14px;
+  padding: 14px 16px; }
+.panel h2 { margin: 0 0 10px; font-size: 13px; letter-spacing: .8px;
+  text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.panel h3 { margin: 6px 0 4px; font-size: 12px; color: var(--accent); font-weight: 600; text-transform:none; letter-spacing:0; }
+.src { grid-area: src; }
+.curv { grid-area: curv; }
+.narrative { grid-area: narrative; }
+.gate { grid-area: gate; }
+.narrative h2 { color: var(--accent); font-size:15px; text-transform:none; letter-spacing:0; }
+.narrative p { color: var(--fg); margin: 0; font-size:14px; }
+.kv { width: 100%; border-collapse: collapse; font-size: 13px; }
+.kv th { text-align: left; color: var(--muted); font-weight: 400; padding: 3px 0;
+  border-bottom: 1px dashed var(--grid); }
+.kv td { text-align: right; color: var(--fg); font-variant-numeric: tabular-nums;
+  padding: 3px 0; border-bottom: 1px dashed var(--grid); }
+.kv.compare td { text-align: right; }
+.kv.compare input[type=range] { width: 70%; accent-color: var(--accent); vertical-align: middle; margin-right:6px; }
+.kv.compare output { color: var(--fg); font-variant-numeric: tabular-nums; }
+.metric { background: #0e1422; border-radius: 8px; padding: 8px 10px; margin: 4px 0 8px;
+  overflow-x: auto; }
+.formulas { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 8px; }
+.note { color: var(--muted); font-size: 12px; margin-top: 10px; }
+@media (max-width: 1000px) {
+  main { grid-template-columns: 1fr;
+    grid-template-areas: "viz" "src" "curv" "narrative" "gate"; }
+  .formulas { grid-template-columns: 1fr; }
+}

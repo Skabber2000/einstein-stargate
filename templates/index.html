@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>How much energy to open a Star-Gate?</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"
+    integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"
+    integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk"
+    crossorigin="anonymous"
+    onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+</head>
+<body>
+  <header class="hdr">
+    <h1>How much energy do you need to open a Star-Gate?</h1>
+    <p>From a pebble bending spacetime, to tearing it open. Click through, or press <kbd>Play</kbd>.</p>
+  </header>
+
+  <nav class="story" id="story">
+    <button class="ssel active" data-i="0">① Moon</button>
+    <button class="ssel"        data-i="1">② Earth</button>
+    <button class="ssel"        data-i="2">③ Sun</button>
+    <button class="ssel"        data-i="3">④ R136a1 (heaviest star)</button>
+    <button class="ssel"        data-i="4">⑤ Black hole (10 M☉)</button>
+    <button class="ssel"        data-i="5">⑥ Star-Gate (wormhole)</button>
+    <button id="playBtn" class="play">▶ Play</button>
+  </nav>
+
+  <main>
+    <section class="viz">
+      <div id="three"></div>
+      <div class="caption" id="sceneCaption"></div>
+      <div class="legend">
+        <span><i class="dot far"></i> spacetime grid (Flamm embedding)</span>
+        <span><i class="dot near"></i> mass–energy source</span>
+        <span><i class="dot horizon"></i> event horizon / throat $r=r_s$</span>
+      </div>
+    </section>
+
+    <section class="panel src">
+      <h2>Source</h2>
+      <table class="kv">
+        <tr><th>Object</th><td id="sObj">—</td></tr>
+        <tr><th>Mass $M$</th><td id="sM">—</td></tr>
+        <tr><th>Radius $R$</th><td id="sR">—</td></tr>
+        <tr><th>Schwarzschild $r_s = \tfrac{2GM}{c^2}$</th><td id="sRs">—</td></tr>
+        <tr><th>Compactness $r_s/R$</th><td id="sC">—</td></tr>
+      </table>
+      <p class="metric">$$\boxed{\;r_s = \tfrac{2GM}{c^2}\;}$$</p>
+    </section>
+
+    <section class="panel curv">
+      <h2>Curvature</h2>
+      <p class="metric">$$K \equiv R_{\mu\nu\rho\sigma}R^{\mu\nu\rho\sigma} = \frac{48\,G^2 M^2}{c^4\,r^6}$$</p>
+      <table class="kv">
+        <tr><th>$K$ at $r = R$ (body surface)</th><td id="kSurf">—</td></tr>
+        <tr><th>$K$ at $r = 2r_s$</th><td id="k2Rs">—</td></tr>
+        <tr><th>Tidal acceleration / m at $R$</th><td id="tidal">—</td></tr>
+      </table>
+    </section>
+
+    <section class="panel narrative">
+      <h2 id="storyTitle">—</h2>
+      <p id="storyBody">—</p>
+    </section>
+
+    <section class="panel gate" id="gatePanel">
+      <h2>Energy to open a Star-Gate</h2>
+      <p>A Morris–Thorne traversable wormhole of throat radius $b_0$ needs <em>exotic</em> matter (negative energy density) confined to a shell at the throat:</p>
+      <div class="formulas">
+        <div>
+          <h3>Einstein equation (classical magnitude)</h3>
+          <p class="metric">$$|T_{\mu\nu}| \sim \frac{c^4}{G\,b_0^{2}}\quad\Rightarrow\quad |E|\sim \int |T|\,dV \sim \frac{c^4 b_0}{G}$$</p>
+        </div>
+        <div>
+          <h3>Quantum lower bound (Ford–Roman)</h3>
+          <p class="metric">$$|E|\;\gtrsim\;\frac{\hbar c}{b_0}$$</p>
+        </div>
+      </div>
+      <table class="kv compare">
+        <tr><th>Throat $b_0$</th><td><input id="b0Input" type="range" min="-3" max="6" step="0.01" value="0.3"><output id="b0Out"></output></td></tr>
+        <tr><th>$|E_{\text{classical}}| = c^4 b_0/G$</th><td id="Ec">—</td></tr>
+      </table>
+      <h3 style="margin-top:10px">Things everybody knows — same energy as…</h3>
+      <table class="kv compare">
+        <tr><th>Hiroshima bombs (15 kt each)</th><td id="EcHiro">—</td></tr>
+        <tr><th>Tsar Bomba (50 Mt H-bomb)</th><td id="EcTsar">—</td></tr>
+        <tr><th>Every nuke on Earth, simultaneously</th><td id="EcNukes">—</td></tr>
+        <tr><th>Dinosaur-killer asteroid impacts</th><td id="EcChicx">—</td></tr>
+        <tr><th>Years of total world energy use</th><td id="EcWorld">—</td></tr>
+        <tr><th>Jupiters annihilated into pure energy</th><td id="EcJup">—</td></tr>
+        <tr><th>Sun's entire 10-Gyr lifetime output</th><td id="EcSunLife">—</td></tr>
+        <tr><th>Sun's rest-mass energy ($M_\odot c^2$)</th><td id="EcSun">—</td></tr>
+      </table>
+      <h3 style="margin-top:10px">Quantum-side lower bound</h3>
+      <table class="kv compare">
+        <tr><th>$|E_{\text{quantum}}|=\hbar c/b_0$</th><td id="Eq">—</td></tr>
+        <tr><th>Classical / quantum gap</th><td id="ratio">—</td></tr>
+        <tr><th>Antimatter mass equivalent</th><td id="anti">—</td></tr>
+      </table>
+      <p class="note">Why the huge gap? Quantum inequalities tell you the <em>minimum</em> exotic energy is tiny; the Einstein equations tell you the <em>required</em> exotic energy to actually hold the throat open is enormous. Closing this $10^{70}$ gap is the unsolved problem.</p>
+    </section>
+  </main>
+
+  <script type="importmap">
+  { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+                 "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/" } }
+  </script>
+  <script type="module" src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
