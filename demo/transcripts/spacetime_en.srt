@@ -1,0 +1,167 @@
+1
+00:00:03,000 --> 00:00:05,420
+Spacetime is not a stage.
+
+2
+00:00:05,420 --> 00:00:06,872
+It is the cast.
+
+3
+00:00:06,872 --> 00:00:14,616
+Mass and energy press on it; the Einstein tensor measures how deeply they press.
+
+4
+00:00:15,016 --> 00:00:15,934
+The Moon.
+
+5
+00:00:15,934 --> 00:00:24,199
+Its Schwarzschild radius is only 0.11 millimeters — smaller than a grain of sand.
+
+6
+00:00:24,199 --> 00:00:32,669
+The curvature you see here is what an ant on the lunar surface would actually feel.
+
+7
+00:00:33,069 --> 00:00:34,097
+The Earth.
+
+8
+00:00:34,097 --> 00:00:37,389
+r-sub-s equals 8.95 millimeters.
+
+9
+00:00:37,389 --> 00:00:45,310
+The entire planet would have to collapse to that size to become a black hole.
+
+10
+00:00:45,310 --> 00:00:55,596
+We orbit the Sun, we feel gravity, yet the geometric distortion is only one part in ten to the nine.
+
+11
+00:00:55,996 --> 00:00:56,948
+The Sun.
+
+12
+00:00:56,948 --> 00:01:06,466
+Schwarzschild radius 2.95 kilometers; physical radius nearly 700 000 kilometers.
+
+13
+00:01:06,466 --> 00:01:13,486
+The well looks deep here only because we plot in r-s units.
+
+14
+00:01:13,486 --> 00:01:20,743
+In reality, spacetime around the Sun is still 99.9996 % flat.
+
+15
+00:01:20,743 --> 00:01:33,712
+But enough to bend starlight by 1.75 arc-seconds — the measurement that confirmed General Relativity in 1919.
+
+16
+00:01:34,112 --> 00:01:38,914
+R136a1 — the most massive single star known.
+
+17
+00:01:38,914 --> 00:01:44,371
+Roughly 200 solar masses, in the Tarantula Nebula.
+
+18
+00:01:44,371 --> 00:01:53,211
+Despite that, the gravitational distortion at its surface is still only 8 × 10⁻⁵.
+
+19
+00:01:53,211 --> 00:01:59,978
+Stars cannot break spacetime by mass alone — only by collapse.
+
+20
+00:02:00,378 --> 00:02:02,276
+A 10 M☉ black hole.
+
+21
+00:02:02,276 --> 00:02:04,873
+Now the radius equals r-s.
+
+22
+00:02:04,873 --> 00:02:08,569
+The full Flamm paraboloid is exposed.
+
+23
+00:02:08,569 --> 00:02:13,263
+Inside the horizon, time and radius swap roles.
+
+24
+00:02:13,263 --> 00:02:19,856
+This is what spacetime pressed past its breaking point looks like.
+
+25
+00:02:19,856 --> 00:02:22,453
+But it has only one mouth.
+
+26
+00:02:22,453 --> 00:02:25,849
+Whatever falls in cannot come out.
+
+27
+00:02:26,249 --> 00:02:27,574
+The Star-Gate.
+
+28
+00:02:27,574 --> 00:02:34,574
+Two Schwarzschild geometries glued at a throat — an Einstein-Rosen bridge.
+
+29
+00:02:34,574 --> 00:02:36,938
+Two mouths, one shortcut.
+
+30
+00:02:36,938 --> 00:02:47,817
+To hold the throat open against its urge to collapse, you need exotic matter — matter with negative energy density.
+
+31
+00:02:48,217 --> 00:02:51,441
+How much energy does that cost?
+
+32
+00:02:51,441 --> 00:02:59,243
+The Einstein equations give a classical estimate: c⁴ × b₀ divided by big-G.
+
+33
+00:02:59,243 --> 00:03:08,606
+For a two-meter gate, wide enough for a person to walk through, that is 2.4 × 10⁴⁴ joules.
+
+34
+00:03:08,606 --> 00:03:14,431
+To make that real: it equals about 10³¹ Hiroshima bombs.
+
+35
+00:03:14,431 --> 00:03:18,280
+A one with thirty-one zeros after it.
+
+36
+00:03:18,280 --> 00:03:29,099
+It equals every nuclear weapon currently on Earth, detonated at once, sixteen septillion times in a row.
+
+37
+00:03:29,099 --> 00:03:36,693
+It equals four hundred sextillion years of total world energy production.
+
+38
+00:03:36,693 --> 00:03:45,327
+Or, most directly: it equals one and a half Jupiters, annihilated into pure energy.
+
+39
+00:03:45,327 --> 00:03:55,314
+Ford and Roman's quantum inequalities allow exotic energy only on the order of ℏc divided by b₀.
+
+40
+00:03:55,314 --> 00:04:02,283
+For the same gate: less than a millionth of a billionth of a joule.
+
+41
+00:04:02,283 --> 00:04:11,334
+The classical requirement exceeds the quantum allowance by seventy orders of magnitude.
+
+42
+00:04:11,334 --> 00:04:18,303
+Until physics closes that gap, the Star-Gate stays science fiction.
