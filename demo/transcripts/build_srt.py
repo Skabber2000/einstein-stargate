@@ -1,15 +1,16 @@
 """Generate SRT caption files for Facebook upload.
 
-Probes the actual F5-TTS block durations, splits each block by sentence,
-and timestamps each cue proportionally to its character count. Output
-files follow Facebook's required pattern: ``{video_basename}.{locale}.srt``
-so they can be uploaded directly from the post composer.
+Probes the actual narrated WAV durations for the selected language,
+sentence-splits each block, and timestamps cues proportionally. Output
+files follow Facebook's required pattern: ``{video_basename}.{locale}.srt``.
 
 Run from project root:
-    python demo/transcripts/build_srt.py
+    python demo/transcripts/build_srt.py            # English video
+    python demo/transcripts/build_srt.py --lang uk  # Ukrainian video
 """
 from __future__ import annotations
 
+import argparse
 import json
 import re
 import subprocess
@@ -26,8 +27,9 @@ MAIN_START = INTRO_DUR - XFADE1     # 3.0 s — when block 0 narration begins
 GAP        = 0.4                    # silence between narration blocks
 
 # Facebook requires SRT filenames in the form {video_basename}.{locale}.srt
-VIDEO_BASENAME = "spacetime_facebook_1080p"
 LANG_TO_LOCALE = {"en": "en_US", "uk": "uk_UA"}
+# Per-language audio-block filename prefix in demo/build/
+AUDIO_PREFIX = {"en": "", "uk": "uk_"}
 
 
 def probe(path: Path) -> float:
@@ -180,12 +182,21 @@ SCRIPTS = {
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--lang", default="en", choices=list(AUDIO_PREFIX.keys()),
+                        help="Which narrated audio to time against (en or uk).")
+    args = parser.parse_args()
+
     OUT.mkdir(parents=True, exist_ok=True)
+    prefix = AUDIO_PREFIX[args.lang]
+    suffix_video = "" if args.lang == "en" else f"_{args.lang}"
+    video_basename = f"spacetime_facebook_1080p{suffix_video}"
+
     block_durations = []
     for i in range(8):
-        p = BUILD / f"block_{i:02d}.wav"
+        p = BUILD / f"block_{prefix}{i:02d}.wav"
         if not p.exists():
-            raise SystemExit(f"missing {p} — run synthesize.py first")
+            raise SystemExit(f"missing {p} — run synthesize step for lang={args.lang} first")
         block_durations.append(probe(p))
 
     # Compute the start time of each block in the final video timeline.
@@ -194,7 +205,7 @@ def main() -> None:
     for d in block_durations:
         block_starts.append(t)
         t += d + GAP
-    print(f"timeline: narration 0 starts at {block_starts[0]:.2f}s, ends at {t:.2f}s")
+    print(f"[{args.lang}] timeline: narration 0 starts at {block_starts[0]:.2f}s, ends at {t:.2f}s")
 
     for lang, blocks in SCRIPTS.items():
         if len(blocks) != len(block_durations):
@@ -203,7 +214,6 @@ def main() -> None:
         srt_lines: list[str] = []
         cue = 1
         for bi, sentences in enumerate(blocks):
-            # Re-split anything we missed; preserves long-sentence safety.
             cues = []
             for s in sentences:
                 cues.extend(sentence_split(s))
@@ -216,18 +226,15 @@ def main() -> None:
                 dur = block_dur * share
                 start = t0 + running
                 end = start + dur
-                # Trim trailing gap inside the block so display doesn't overrun next cue
                 if c is cues[-1]:
                     end = t0 + block_dur
-                srt_lines.append(
-                    f"{cue}\n{fmt_ts(start)} --> {fmt_ts(end)}\n{c}\n"
-                )
+                srt_lines.append(f"{cue}\n{fmt_ts(start)} --> {fmt_ts(end)}\n{c}\n")
                 cue += 1
                 running += dur
         locale = LANG_TO_LOCALE.get(lang, lang)
-        srt_path = OUT / f"{VIDEO_BASENAME}.{locale}.srt"
+        srt_path = OUT / f"{video_basename}.{locale}.srt"
         srt_path.write_text("\n".join(srt_lines), encoding="utf-8")
-        print(f"  → {srt_path.relative_to(ROOT)}  ({cue-1} cues)")
+        print(f"  -> {srt_path.relative_to(ROOT)}  ({cue-1} cues)")
 
 
 if __name__ == "__main__":

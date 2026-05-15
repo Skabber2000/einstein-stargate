@@ -9,15 +9,29 @@ G="$ROOT/demo/grok"
 OV="$ROOT/demo/overlays"
 M="$ROOT/demo/music"
 
-INTRO="$G/intro.mp4"           # 8 s, golden Gμν symbol
-MAIN="$B/spacetime_demo.mp4"    # 156 s, narrated walkthrough
-OUTRO="$G/outro2.mp4"           # 8 s, spaceship into wormhole
+# Language: set LANG=uk (or any 2-letter code) for non-English variants.
+# Suffix is empty for English; '_uk' otherwise. Title/outro overlay PNGs
+# fall back to the English ones if no language-specific version exists.
+LANG_CODE="${LANG:-en}"
+if [[ "$LANG_CODE" == "en" ]]; then
+  SUFFIX=""
+else
+  SUFFIX="_${LANG_CODE}"
+fi
 
-TITLE="$OV/intro_title.png"
-MSG="$OV/outro_message.png"
+INTRO="$G/intro.mp4"
+MAIN="$B/spacetime_demo${SUFFIX}.mp4"
+OUTRO="$G/outro2.mp4"
+
+TITLE="$OV/intro_title${SUFFIX}.png"
+[[ -f "$TITLE" ]] || TITLE="$OV/intro_title.png"
+MSG="$OV/outro_message${SUFFIX}.png"
+[[ -f "$MSG" ]] || MSG="$OV/outro_message.png"
+
 MUSIC="$M/Long_Note_Four.mp3"   # Kevin MacLeod, CC-BY 4.0 — incompetech.com (10:00)
 
-OUT="$B/spacetime_full.mp4"
+OUT="$B/spacetime_full${SUFFIX}.mp4"
+echo "[assemble] lang=$LANG_CODE  main=$(basename "$MAIN")  title=$(basename "$TITLE")  out=$(basename "$OUT")"
 
 # Timing
 INTRO_DUR=8

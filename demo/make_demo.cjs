@@ -11,6 +11,14 @@ const ROOT = path.resolve(__dirname);
 const OUT  = path.join(ROOT, 'build');
 fs.mkdirSync(OUT, { recursive: true });
 
+// Language suffix: empty for English, '_uk' / '_es' / ... otherwise.
+// Block WAVs:    block_NN.wav (en)  |  block_uk_NN.wav (uk) ...
+// Outputs:       spacetime_demo[_uk].mp4 etc.
+const LANG = (process.env.LANG || 'en').replace(/[^a-z]/g, '').slice(0, 4);
+const SUFFIX  = LANG === 'en' ? '' : `_${LANG}`;
+const BPREFIX = LANG === 'en' ? '' : `${LANG}_`;
+console.log(`[lang] ${LANG}  blocks=block_${BPREFIX}NN.wav  out=spacetime_demo${SUFFIX}.mp4`);
+
 const SCRIPT = JSON.parse(fs.readFileSync(path.join(ROOT, 'script.json'), 'utf8'));
 const PROJECT_ROOT = path.resolve(ROOT, '..');
 // Piper model path is relative to project root in script.json
@@ -35,7 +43,7 @@ console.log('[1/4] Generating TTS…');
 const blocks = [];
 SCRIPT.scenes.forEach((s, i) => {
   // nosemgrep: javascript.lang.security.audit.path-traversal.path-join-resolve-traversal.path-join-resolve-traversal
-  const wav = path.join(OUT, `block_${String(i).padStart(2,'0')}.wav`);
+  const wav = path.join(OUT, `block_${BPREFIX}${String(i).padStart(2,'0')}.wav`);
 
   if (SCRIPT.engine === 'f5-tts') {
     // Pre-rendered by demo/synthesize.py — no synthesis here, just probe.
@@ -100,13 +108,13 @@ console.log('[2/4] Recording browser…');
   await page.close();
   await ctx.close();
   // nosemgrep: javascript.lang.security.audit.path-traversal.path-join-resolve-traversal.path-join-resolve-traversal
-  const rawWebm = path.join(OUT, 'raw.webm');
+  const rawWebm = path.join(OUT, `raw${SUFFIX}.webm`);
   fs.renameSync(writtenPath, rawWebm);
   await browser.close();
 
   // ── 3. Compose narration audio (sequential WAVs with silences) ─────
   console.log('[3/4] Composing audio…');
-  const concatList = path.join(OUT, 'concat.txt');
+  const concatList = path.join(OUT, `concat${SUFFIX}.txt`);
   const silence    = path.join(OUT, 'silence.wav');
   spawnSync('ffmpeg', ['-y', '-f', 'lavfi', '-i', 'anullsrc=r=48000:cl=stereo', '-t', '0.4', silence], { stdio: 'ignore' });
   const lines = [];
@@ -115,12 +123,12 @@ console.log('[2/4] Recording browser…');
     if (i < blocks.length - 1) lines.push(`file '${silence}'`);
   });
   fs.writeFileSync(concatList, lines.join('\n') + '\n');
-  const narration = path.join(OUT, 'narration.wav');
+  const narration = path.join(OUT, `narration${SUFFIX}.wav`);
   spawnSync('ffmpeg', ['-y', '-f', 'concat', '-safe', '0', '-i', concatList, '-c', 'copy', narration], { stdio: 'ignore' });
 
   // ── 4. Mux video + audio ───────────────────────────────────────────
   console.log('[4/4] Muxing final MP4…');
-  const out = path.join(OUT, 'spacetime_demo.mp4');
+  const out = path.join(OUT, `spacetime_demo${SUFFIX}.mp4`);
   const args = [
     '-y',
     '-i', rawWebm,

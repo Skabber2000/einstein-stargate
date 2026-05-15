@@ -8,8 +8,16 @@ set -euo pipefail
 export PATH="/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:$PATH"
 
 cd "$(dirname "$0")/.."
-SRC="demo/build/spacetime_full.mp4"
-OUT="demo/build/spacetime_facebook_1080p.mp4"
+
+LANG_CODE="${LANG:-en}"
+if [[ "$LANG_CODE" == "en" ]]; then
+  SUFFIX=""
+else
+  SUFFIX="_${LANG_CODE}"
+fi
+SRC="demo/build/spacetime_full${SUFFIX}.mp4"
+OUT="demo/build/spacetime_facebook_1080p${SUFFIX}.mp4"
+echo "[export] lang=$LANG_CODE  src=$(basename "$SRC")  out=$(basename "$OUT")"
 
 if [[ ! -f "$SRC" ]]; then echo "missing $SRC"; exit 1; fi
 
