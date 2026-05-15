@@ -1,8 +1,9 @@
 """Generate SRT caption files for Facebook upload.
 
 Probes the actual F5-TTS block durations, splits each block by sentence,
-and timestamps each cue proportionally to its character count. The result
-is a tight, ready-to-upload SRT for each supported language.
+and timestamps each cue proportionally to its character count. Output
+files follow Facebook's required pattern: ``{video_basename}.{locale}.srt``
+so they can be uploaded directly from the post composer.
 
 Run from project root:
     python demo/transcripts/build_srt.py
@@ -23,6 +24,10 @@ INTRO_DUR  = 8.0
 XFADE1     = 5.0
 MAIN_START = INTRO_DUR - XFADE1     # 3.0 s — when block 0 narration begins
 GAP        = 0.4                    # silence between narration blocks
+
+# Facebook requires SRT filenames in the form {video_basename}.{locale}.srt
+VIDEO_BASENAME = "spacetime_facebook_1080p"
+LANG_TO_LOCALE = {"en": "en_US", "uk": "uk_UA"}
 
 
 def probe(path: Path) -> float:
@@ -219,7 +224,8 @@ def main() -> None:
                 )
                 cue += 1
                 running += dur
-        srt_path = OUT / f"spacetime_{lang}.srt"
+        locale = LANG_TO_LOCALE.get(lang, lang)
+        srt_path = OUT / f"{VIDEO_BASENAME}.{locale}.srt"
         srt_path.write_text("\n".join(srt_lines), encoding="utf-8")
         print(f"  → {srt_path.relative_to(ROOT)}  ({cue-1} cues)")
 

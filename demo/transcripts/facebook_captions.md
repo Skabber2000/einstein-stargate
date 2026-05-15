@@ -150,30 +150,42 @@ Code et vidéo open-source — lien en commentaires.
 
 ## Manually uploading captions to Facebook
 
-Ready-to-upload SRT files are in this folder:
+Ready-to-upload SRT files are in this folder. **The filenames already match Facebook's required pattern** (`{video_basename}.{locale}.srt`):
 
-| File | Language | Cues |
-|---|---|---|
-| [`spacetime_en.srt`](spacetime_en.srt) | English | 42 |
-| [`spacetime_uk.srt`](spacetime_uk.srt) | Ukrainian (Українська) | 44 |
+| File | Language | Locale | Cues |
+|---|---|---|---|
+| [`spacetime_facebook_1080p.en_US.srt`](spacetime_facebook_1080p.en_US.srt) | English | en_US | 42 |
+| [`spacetime_facebook_1080p.uk_UA.srt`](spacetime_facebook_1080p.uk_UA.srt) | Ukrainian (Українська) | uk_UA | 44 |
 
-Timings are synchronised to the actual F5-TTS audio (narration starts at 0:03 after the intro cross-fade, runs to 4:18). Regenerate after any audio re-render with: `python demo/transcripts/build_srt.py`.
+Timings are synchronised to the actual F5-TTS audio (narration starts at 0:03 after the intro cross-fade, ends ~4:18). Regenerate after any audio re-render with: `python demo/transcripts/build_srt.py`.
 
 ### Upload steps on Facebook
 
 1. **Create the post** with `demo/build/spacetime_facebook_1080p.mp4` attached, but do **not** publish yet — click **Edit video** in the composer.
-2. In **Captions / Subtitles**, choose **Upload SRT file**.
-3. Pick `spacetime_en.srt` and set its language to **English**. Save.
-4. Click **Add another language** → upload `spacetime_uk.srt` → set language to **Ukrainian**. Save.
-5. Repeat for any additional languages (use the per-language section below as a starting point — the `build_srt.py` script can produce matching `.srt` files for any language whose transcript you add to its `SCRIPTS` dict).
-6. In **Video details**, set the post copy (caption above) and a thumbnail (`demo/build/preview.png` or a hand-picked frame).
-7. Publish.
+2. In **Captions / Subtitles**, choose **Upload SRT file** → `spacetime_facebook_1080p.en_US.srt` → save.
+3. Click **Add another language** → `spacetime_facebook_1080p.uk_UA.srt` → save.
+4. Repeat for any other language using its locale code (see table below).
+5. In **Video details**, set the post copy (caption above) and a thumbnail (`demo/build/preview.png` or a hand-picked wormhole frame).
+6. Publish.
 
 Facebook will auto-show captions in the viewer's preferred language if you upload more than one. The viewer can switch via the **CC** menu.
 
-### File naming
+### Naming convention (this is what Facebook actually rejects on)
 
-If you upload a single language only, Facebook also accepts the legacy auto-detect naming `<video>.<lang>_<region>.srt` (e.g. `spacetime_facebook_1080p.en_US.srt`). Easier path is the explicit dropdown in step 3.
+The SRT filename MUST be exactly `<video_filename_without_extension>.<locale>.srt`. The locale is `xx_YY` (lowercase language + uppercase region). Common codes:
+
+| Locale | Language |
+|---|---|
+| `en_US` | English (US) |
+| `uk_UA` | Ukrainian |
+| `es_ES` / `es_LA` | Spanish (Spain / Latin America) |
+| `de_DE` | German |
+| `fr_FR` | French |
+| `pt_PT` / `pt_BR` | Portuguese (Portugal / Brazil) |
+| `ru_RU` | Russian |
+| `pl_PL` | Polish |
+
+For our video `spacetime_facebook_1080p.mp4`, English subtitles must be named `spacetime_facebook_1080p.en_US.srt`. Anything else gets rejected with *"You uploaded a .SRT file with an incorrect file name."*
 
 ## Posting checklist
 
