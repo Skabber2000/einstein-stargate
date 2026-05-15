@@ -71,7 +71,7 @@ einstein-stargate/
 │   ├── make_demo.cjs                   # Piper TTS + Playwright recording
 │   ├── assemble.sh                     # FFmpeg concat with crossfades + music bed
 │   ├── fonts/                          # Cinzel, Roboto (SIL OFL / Apache 2.0)
-│   ├── music/Aces_High.mp3             # Kevin MacLeod, CC-BY 4.0 — see CREDITS.md
+│   ├── music/Long_Note_Four.mp3        # Kevin MacLeod, CC-BY 4.0 — see CREDITS.md
 │   ├── overlays/                       # Title PNGs generated with Pillow
 │   ├── voices/                         # Piper ONNX voice (download via script)
 │   ├── grok/                           # Grok Imagine intro / outro clips
@@ -91,7 +91,7 @@ einstein-stargate/
 | Audio/Video  | FFmpeg (libx264, AAC, xfade, amix)            |
 | Title cards  | Python Pillow (Gaussian-halo overlay PNGs)    |
 | AI video     | xAI Grok Imagine Video                        |
-| Music        | "Aces High" — Kevin MacLeod (incompetech.com) |
+| Music        | "Long Note Four" — Kevin MacLeod (incompetech.com) |
 
 ## License
 

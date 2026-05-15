@@ -15,7 +15,7 @@ OUTRO="$G/outro2.mp4"           # 8 s, spaceship into wormhole
 
 TITLE="$OV/intro_title.png"
 MSG="$OV/outro_message.png"
-MUSIC="$M/Aces_High.mp3"        # Kevin MacLeod, CC-BY 4.0 — incompetech.com
+MUSIC="$M/Long_Note_Four.mp3"   # Kevin MacLeod, CC-BY 4.0 — incompetech.com (10:00)
 
 OUT="$B/spacetime_full.mp4"
 

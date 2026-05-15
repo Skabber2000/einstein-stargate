@@ -4,7 +4,7 @@ The project source code is MIT-licensed (see [LICENSE](LICENSE)). Bundled third-
 
 ## Music
 
-- **"Aces High"** by Kevin MacLeod ([incompetech.com](https://incompetech.com))
+- **"Long Note Four"** by Kevin MacLeod ([incompetech.com](https://incompetech.com))
   Licensed under **Creative Commons: By Attribution 4.0** (CC-BY 4.0)
   <https://creativecommons.org/licenses/by/4.0/>
   *If you remix or redistribute the demo video, please retain this attribution.*
